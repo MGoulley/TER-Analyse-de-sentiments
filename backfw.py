@@ -74,6 +74,10 @@ def backward(lst, arcs, noeudoutput, outputTarget):
             if(arc.noeudA in hidden_nodes and hidden_arc.noeudD == arc.noeudA):
                 arc.valeur += (((delta / hidden_arc.valeur) * sigmoid_derivee(arc.noeudA.somme)) / arc.noeudD.valeur)
 
+def reset(lst):
+    for noeud in lst:
+        noeud.somme = 0
+
 def print_reseau(lst):
     for noeud in lst:
         print(noeud)
@@ -138,12 +142,13 @@ arcs.append(a46)
 arcs.append(a56)
 
 compteur = 0
-while compteur < 40:
+min = 1.0
+while compteur < 10000:
     calcul_somme(neurones, n6)
     calcul_sigmoid(neurones, n6)
     backward(neurones, arcs, n6, output)
+    reset(neurones)
     compteur+= 1
-    print(compteur)
-    print(n6.valeur)
+
 #print_arcs(arcs)
 #print_reseau(neurones)
