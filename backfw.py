@@ -1,4 +1,5 @@
 import math
+import random
 
 class Noeud:
     valeur = 0
@@ -100,16 +101,27 @@ n5 = Noeud(0,0,"n5")
 # Output Layer
 n6 = Noeud(0,0,"n6")
 
-# creation des arcs
-a13 = Arc(0.8, n1, n3)
-a14 = Arc(0.4, n1, n4)
-a15 = Arc(0.3, n1, n5)
-a23 = Arc(0.2, n2, n3)
-a24 = Arc(0.9, n2, n4)
-a25 = Arc(0.5, n2, n5)
-a36 = Arc(0.3, n3, n6)
-a46 = Arc(0.5, n4, n6)
-a56 = Arc(0.9, n5, n6)
+# creation des arcs (exemple)
+# a13 = Arc(0.8, n1, n3)
+# a14 = Arc(0.4, n1, n4)
+# a15 = Arc(0.3, n1, n5)
+# a23 = Arc(0.2, n2, n3)
+# a24 = Arc(0.9, n2, n4)
+# a25 = Arc(0.5, n2, n5)
+# a36 = Arc(0.3, n3, n6)
+# a46 = Arc(0.5, n4, n6)
+# a56 = Arc(0.9, n5, n6)
+
+# creation des arcs random
+a13 = Arc(random.random(), n1, n3)
+a14 = Arc(random.random(), n1, n4)
+a15 = Arc(random.random(), n1, n5)
+a23 = Arc(random.random(), n2, n3)
+a24 = Arc(random.random(), n2, n4)
+a25 = Arc(random.random(), n2, n5)
+a36 = Arc(random.random(), n3, n6)
+a46 = Arc(random.random(), n4, n6)
+a56 = Arc(random.random(), n5, n6)
 
 # ajout des arcs aux noeuds
 n1.add_arc(a13)
@@ -149,6 +161,15 @@ while compteur < 10000:
     backward(neurones, arcs, n6, output)
     reset(neurones)
     compteur+= 1
+print(n6.valeur)
 
+# print_reseau(neurones)
+# n1.valeur = 0
+# n2.valeur = 0
+# print_reseau(neurones)
+# calcul_somme(neurones, n6)
+# calcul_sigmoid(neurones, n6)
+# valeur_output = n6.valeur
+# print(valeur_output)
 #print_arcs(arcs)
 #print_reseau(neurones)
