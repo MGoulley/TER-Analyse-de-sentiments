@@ -1,0 +1,100 @@
+import os
+import sys
+import csv
+import re
+import numpy as np
+import random as rn
+import pandas
+import nltk
+from sklearn.neural_network import MLPClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import BernoulliNB
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+
+def classifiers(train_filename, dev_filename, nb_features):
+    dataset_train =  np.loadtxt(train_filename, delimiter=",")
+    x_train       =  dataset_train[:,0:nb_features]
+    y_train       =  dataset_train[:,nb_features]
+
+    # Chargement du fichier de dÃ©veloppement ou de test 
+    dataset_dev   =  np.loadtxt(dev_filename, delimiter=",")
+    X_dev         =  dataset_dev[:,0:nb_features]
+    y_dev         =  dataset_dev[:,nb_features]
+
+    # Entrainement du classifieur
+    #Â Naive Bays
+    
+    
+    # K plus proches voisins
+    #clf = KNeighborsClassifier(5)
+    
+    #Â Perceptrons multi-couches
+    #clf = MLPClassifier(alpha=1)
+
+
+    # Arbre de dÃ©cision
+    clf = DecisionTreeClassifier(criterion='gini', splitter='best', max_depth=4, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=None, random_state=None, max_leaf_nodes=None, class_weight=None, presort=False)
+    
+    # SVN
+    #clf = SVC(kernel="linear", C=0.025, probability=True)
+    
+    # Combinaison de classifieurs
+    #clf = AdaBoostClassifier()
+    #clf = GaussianNB()
+    clf.fit(x_train, y_train)
+
+    #Â Calcul du score de Accuracy (Exactitude) 
+    score = clf.score(X_dev, y_dev)
+
+    print(str(score * 100) + " %")
+
+
+
+
+#permet de choisir les features que l'on veut inclure
+def choix(file,emoji=True,hashtag=True,maj=True):
+    text =  np.loadtxt(file, delimiter=",")
+    if emoji==False:
+        text=np.delete(text,1)
+    if hastag==False:
+        text==np.delete(text,2)
+    if maj==False:
+        text==np.delete(text,3)
+    return text
+
+
+def get_phrase(file):
+    fi=open(file,"r")
+    res_temp=[]
+    for line in fi:
+        res_temp.append(line)
+
+
+    res=[]
+    for elem in res_temp:
+        x=elem.split(",")
+        res.append(x)
+
+    return res
+
+def token(tab):
+    aq=[]
+    for elem,jy in tab:
+        temp=nltk.word_tokenize(elem)
+        aq.append(temp)
+    return aq
+
+file=get_phrase("train.csv")
+#print(file)
+rf=token(file)
+#print(rf)
+
+
+
+classifiers("train.csv","dev.csv" , 1)
